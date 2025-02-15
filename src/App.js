@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+var recData = []
 function getSupportedProperties(characteristic) {
   let supportedProperties = [];
   for (const p in characteristic.properties) {
@@ -12,9 +13,11 @@ function getSupportedProperties(characteristic) {
 
 function handle_change(event) {
   var enc = new TextDecoder("utf-8");
-  console.log(`Received Value: ${event.target.value.buffer}`);
-  console.log(event)
+  // console.log(`Received Value: ${event.target.value.buffer}`);
+  // console.log(event)
   console.log(enc.decode(event.target.value.buffer));
+  recData.push(enc.decode(event.target.value.buffer))
+  console.log(recData)
 }
 
 const BluetoothBLEConnect = () => {
@@ -99,7 +102,7 @@ const BluetoothBLEConnect = () => {
 
       {/* Scan button */}
       <button onClick={requestBluetoothDevices}>Scan for Bluetooth Devices</button>
-
+      <button onClick={() => {recData=[]}}>Clear Vector</button>
       {/* List of devices found */}
       <div>
         <h2>Found Devices:</h2>
@@ -118,7 +121,6 @@ const BluetoothBLEConnect = () => {
           <p>No devices found yet.</p>
         )}
       </div>
-
     </div>
   );
 };
