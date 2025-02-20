@@ -14,7 +14,6 @@ const AllerSpecX_App = () => {
       services: [],
     }
   });
-
   
   return (
     <div>
@@ -26,6 +25,8 @@ const AllerSpecX_App = () => {
       {/* Scan button */}
       <button onClick={ () => {ble.requestBluetoothDevices(bleStatus, updateDevice)} }>Scan for AllerSpecX Device</button>
 
+      <button onClick={() => {ble.clear()}}>Clear Vector</button>
+
       {/* List of devices found */}
       <div>
         <h2>Found Devices:</h2>
@@ -33,11 +34,12 @@ const AllerSpecX_App = () => {
           <ul>
             {bleStatus.availableDevices.map((device, index) => (
               <li key={index}>
-                <strong>{device.name || 'Unnamed Device'}</strong> (ID: {device.id})
+                <strong>{device.name.replace('\b`','') || 'Unnamed Device'}</strong> (ID: {device.id})
                 <button onClick={() => {
+                  console.log("BLE device", bleStatus)
                   bleStatus.selected.device = device;
                   ble.handleDeviceSelect(bleStatus, updateDevice)
-                } } disabled={bleStatus.selected.connection}>
+                } } disabled={bleStatus.connection}>
                   {CONSTS.getStatus(bleStatus.connection)}
                 </button>
               </li>
