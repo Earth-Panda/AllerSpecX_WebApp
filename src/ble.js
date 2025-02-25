@@ -2,10 +2,13 @@ import * as CONSTS from "./consts.js"
 
 export var recData = []
 
-export function clear() {
-    recData = []
+export function clearData() {
+    recData = [];
 }
 
+export function getData(){
+    return recData;
+}
 // Request Bluetooth devices
 export async function requestBluetoothDevices(bleStatus, updateDevice) {
     console.log("Scanning for BLE devices")

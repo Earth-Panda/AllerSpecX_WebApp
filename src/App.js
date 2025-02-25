@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import * as ble from "./ble.js";
 import * as CONSTS from "./consts.js"
+import * as serv from "./server.js"
+
 
 const AllerSpecX_App = () => {
 
@@ -25,8 +27,23 @@ const AllerSpecX_App = () => {
       {/* Scan button */}
       <button onClick={ () => {ble.requestBluetoothDevices(bleStatus, updateDevice)} }>Scan for AllerSpecX Device</button>
 
-      <button onClick={() => {ble.clear()}}>Clear Vector</button>
+      <button onClick={() => {ble.clearData()}}>Clear Vector</button>
 
+      <button onClick={() => {serv.sendToML(ble.getData())}}>Send To ML</button>
+
+      <button
+        onClick={() => alert("Button clicked!")}
+        style={{
+          backgroundImage: './images/AllerSpecX_Logo.png',
+          backgroundSize: "cover",
+          width: "100px",
+          height: "50px",
+          border: "none",
+          cursor: "pointer"
+        }}
+      >
+      </button>
+      
       {/* List of devices found */}
       <div>
         <h2>Found Devices:</h2>
