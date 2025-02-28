@@ -1,38 +1,181 @@
-.App {
+/* container section */
+.container, .results-container, .spectra-container, .confidence-container, .weight-container {
+  /* Centering */
+  align-items: center;
+  justify-content: center;
+
+  /* Beautification */
+  background: rgb(255, 255, 255);
+  box-shadow: 5px 10px 18px #888888;
+  border-radius: 20px;
+
+  /* Grid */
+  padding: 10px;
+  display: grid;
+  grid-template-rows: repeat(9, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.results-container {
+  grid-column: 1 / span 3;
+  grid-row: 2;
+}
+.spectra-container {
+  grid-column: 4 / span 6;
+  grid-row: 1;
+}
+.confidence-container {
+  grid-column:  4 / span 3;
+  grid-row: 2;
+}
+.weight-container {
+  grid-column: 7 / span 3;
+  grid-row: 2;
+}
+
+.logo-container {
+  grid-column: 1 / span 3;
+  grid-row: 1;
+
+  /* Centering */
+  align-items: center;
+  justify-content: center;
+
+  /* Grid */
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  
+  gap: 5px;
+}
+
+/* grid logic section */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+
+  background: rgb(234, 234, 234);
+  gap: 50px;
+  padding: 30px;
+  height: 90vh;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+/* Animation */
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.logo-img  {
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  grid-column: 1 / span 2;
+  grid-row: 1 / span 3;
+}
+
+/* Connect button & Scan button */ 
+.connect-button, .connecting-button, .connected-button, .scan-button, .scan-off-button, .scanning-button {
+  font-size: 16px;
+  cursor: pointer;
+  background:white;
+  transition: 0.2s;
+  border: none;
+  padding: 10px;
+  border-radius: 30px;
+  height: 90%;
+  box-shadow: 5px 10px 18px #888888;
+}
+.connect-button:hover, .scan-button:hover {
+  background:rgb(241, 241, 241);
+  box-shadow: 1px 2px 10px #888888;
+}
+.connect-button:hover:after, .scan-button:hover:after {
+  background:rgb(241, 241, 241);
+  box-shadow: 1px 2px 10px #888888;
+}
+
+.connect-button .connecting-button, .connected-button{
+  grid-column: 1;
+  grid-row: 4;
+}
+.connecting-button {
+  background: linear-gradient(150deg, #c925b0, transparent 30%),
+              linear-gradient(330deg, rgb(26, 59, 207), transparent 30%),
+              linear-gradient(225deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  box-shadow: inset 0px 0px 10px #888888;
+  background-size: 400% 400%;
+	animation: gradient 20s ease infinite;
+}
+.connected-button {
+  background:linear-gradient(225deg, #07b73c, #3cc8e7, #07b73c);
+  box-shadow: inset 0px 0px 10px #888888;
+}
+
+.scan-button, .scan-off-button, .scanning-button {
+  grid-column: 2;
+  grid-row: 4;
+}
+.scan-off-button {
+  background:rgb(165, 165, 165);
+  box-shadow: 1px 2px 10px #888888;
+}
+.scanning-button {
+  background: linear-gradient(150deg, #c925b0, transparent 30%),
+              linear-gradient(330deg, rgb(26, 59, 207), transparent 30%),
+              linear-gradient(225deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  box-shadow: inset 0px 0px 10px #888888;
+  background-size: 400% 400%;
+	animation: gradient 20s ease infinite;
+}
+
+/* Container contents */
+.header {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 35px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.results-display {
+  grid-column: 1;
+  grid-row: 3 / span 5;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 110px;
+  text-shadow: rgb(102, 102, 102) 1px 0 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.weight-display {
+  grid-column: 1;
+  grid-row: 3 / span 5;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 110px;
+  text-align: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.pie {
+  grid-column: 1;
+  grid-row: 3 / span 6;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.2));
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.graph {
+  grid-column: 1;
+  grid-row: 3 / span 6;
 }

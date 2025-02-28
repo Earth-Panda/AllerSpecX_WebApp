@@ -9,8 +9,9 @@ export function clearData() {
 export function getData(){
     return recData;
 }
+
 // Request Bluetooth devices
-export async function requestBluetoothDevices(bleStatus, updateDevice) {
+export async function bluetoothStartup(bleStatus, updateDevice) {
     console.log("Scanning for BLE devices")
     // Check if Web Bluetooth API is supported by the browser
     if (navigator.bluetooth == undefined) {
@@ -22,58 +23,37 @@ export async function requestBluetoothDevices(bleStatus, updateDevice) {
     }
 
     try {
+        updateDevice(prevState => ({
+            ...prevState,
+            connection: CONSTS.SEARCHING, // Set Scanning 
+        }));
+        
         // Request Bluetooth devices with the service Allersence brodcasts
-        const devices = await navigator.bluetooth.requestDevice({
+        const device = await navigator.bluetooth.requestDevice({
             acceptAllDevices: true,
             optionalServices: [CONSTS.ALLERSENCE_SERVICE_UUID], // You can add more services if needed
         });
 
-        // Store the found device in the state
         updateDevice(prevState => ({
             ...prevState,
-            availableDevices: [devices], // Update state with the selected device
+            device: device, // Update state with the selected device
+            connection: CONSTS.CONNECTING, // Set connecting 
         }));
 
-    } catch (err) {
-        updateDevice(prevState => ({
-            ...prevState,
-            error: `Error occurred: ${err.message}`, // Update state with the selected device
-        }));
-    }
-};
 
-export function handle_change(event) {
-    var enc = new TextDecoder("utf-8");
-    console.log(enc.decode(event.target.value.buffer));
-    recData.push(enc.decode(event.target.value.buffer))
-    console.log(recData)
-}
+        const server = await device.gatt.connect();
 
-// Handle device selection and connect
-export async function handleDeviceSelect(bleStatus, updateDevice) {
-    updateDevice(prevState => ({
-        ...prevState,
-        connection: CONSTS.CONNECTING, // Set connecting 
-    }));
-    try {
-        // Start the pairing process and connect to the device's GATT server
-        const server = await bleStatus.selected.device.gatt.connect();
-        
         updateDevice(prevState => ({
             ...prevState,
             connection: CONSTS.CONNECTED, // set connected
         }));
 
-        // Fetch and display the services offered by the connected device
         const services = await server.getPrimaryServices();
         console.log('Device Services:', services); // Log the services to inspect
 
         updateDevice(prevState => ({
             ...prevState,
-            selected: {
-                ...prevState.selected,
-                services: services, // Get the services
-            }
+            services: services, // Get the services
         }));
 
         console.log('Getting Characteristics...');
@@ -92,14 +72,22 @@ export async function handleDeviceSelect(bleStatus, updateDevice) {
                 }
             });
         } 
+
     } catch (err) {
         updateDevice(prevState => ({
             ...prevState,
-            conection: CONSTS.UNCONNECTED,
-            error: `Connection failed: ${err.message}`, // Update state with the selected device
+            connection: CONSTS.UNCONNECTED, // Set Unconnected 
+            error: `Error occurred: ${err.message}`, // Update state with the selected device
         }));
     }
-  };
+};
+
+export function handle_change(event) {
+    var enc = new TextDecoder("utf-8");
+    console.log(enc.decode(event.target.value.buffer));
+    recData.push(enc.decode(event.target.value.buffer))
+    console.log(recData)
+}
 
 function getSupportedProperties(characteristic) {
     let supportedProperties = [];
