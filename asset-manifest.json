@@ -1,15 +1,16 @@
 {
   "files": {
-    "main.css": "/AllerSpecX_WebApp/static/css/main.e6c13ad2.css",
-    "main.js": "/AllerSpecX_WebApp/static/js/main.c5733221.js",
-    "static/js/488.af104311.chunk.js": "/AllerSpecX_WebApp/static/js/488.af104311.chunk.js",
+    "main.css": "/AllerSpecX_WebApp/static/css/main.4ac87b2b.css",
+    "main.js": "/AllerSpecX_WebApp/static/js/main.51899ca1.js",
+    "static/js/488.68521f19.chunk.js": "/AllerSpecX_WebApp/static/js/488.68521f19.chunk.js",
+    "static/media/AllerSpecX_Logo.png": "/AllerSpecX_WebApp/static/media/AllerSpecX_Logo.9d36aea54f3386d97745.png",
     "index.html": "/AllerSpecX_WebApp/index.html",
-    "main.e6c13ad2.css.map": "/AllerSpecX_WebApp/static/css/main.e6c13ad2.css.map",
-    "main.c5733221.js.map": "/AllerSpecX_WebApp/static/js/main.c5733221.js.map",
-    "488.af104311.chunk.js.map": "/AllerSpecX_WebApp/static/js/488.af104311.chunk.js.map"
+    "main.4ac87b2b.css.map": "/AllerSpecX_WebApp/static/css/main.4ac87b2b.css.map",
+    "main.51899ca1.js.map": "/AllerSpecX_WebApp/static/js/main.51899ca1.js.map",
+    "488.68521f19.chunk.js.map": "/AllerSpecX_WebApp/static/js/488.68521f19.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e6c13ad2.css",
-    "static/js/main.c5733221.js"
+    "static/css/main.4ac87b2b.css",
+    "static/js/main.51899ca1.js"
   ]
 }
