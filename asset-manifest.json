@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/AllerSpecX_WebApp/static/css/main.7b58c229.css",
-    "main.js": "/AllerSpecX_WebApp/static/js/main.1201c28c.js",
+    "main.js": "/AllerSpecX_WebApp/static/js/main.2c4330e7.js",
     "static/js/488.68521f19.chunk.js": "/AllerSpecX_WebApp/static/js/488.68521f19.chunk.js",
     "static/media/AllerSpecX_Logo.png": "/AllerSpecX_WebApp/static/media/AllerSpecX_Logo.9d36aea54f3386d97745.png",
     "index.html": "/AllerSpecX_WebApp/index.html",
     "main.7b58c229.css.map": "/AllerSpecX_WebApp/static/css/main.7b58c229.css.map",
-    "main.1201c28c.js.map": "/AllerSpecX_WebApp/static/js/main.1201c28c.js.map",
+    "main.2c4330e7.js.map": "/AllerSpecX_WebApp/static/js/main.2c4330e7.js.map",
     "488.68521f19.chunk.js.map": "/AllerSpecX_WebApp/static/js/488.68521f19.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7b58c229.css",
-    "static/js/main.1201c28c.js"
+    "static/js/main.2c4330e7.js"
   ]
 }
