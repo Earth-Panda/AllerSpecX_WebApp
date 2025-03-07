@@ -9,17 +9,15 @@ export async function sendToML(id, data, updateScan) {
     .then(function (response) {
       console.log(response);
       const data = response.data;
-      const truePer = 0.75;
       updateScan( prev => ({
         ...prev,
         status: false,
         result: data.pred_class,
         confidence: [
-          { name: "", value: 0 },
-          { name: "True", value: truePer },
-          { name: "False", value: 1-truePer },
+          { name: "Yes", value: data.probs[1] },
+          { name: "No", value: data.probs[0] },
         ],
-        weight: 9,
+        weight: data.pred_peanut_mass,
       }));
       console.log(response.pred_class)
     })

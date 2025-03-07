@@ -3,9 +3,7 @@ import * as ble from "./ble.js";
 import * as serv from "./server.js";
 
 export const pieData = [
-    { name: "", value: 100 },
-    { name: "True", value: 0 },
-    { name: "False", value: 0 },
+    { name: "", value: 1 },
 ];
 
 // const zeroSpectra = new Array(64).fill(0);
@@ -16,7 +14,7 @@ export const zeroSpectra = [
   32768, 9823, 54781, 20845, 7312, 48521, 3912, 27682, 5481, 28754, 21879, 39754, 6821, 13287, 4895, 62014
 ];
 
-export const colors = ['#000000', '#00FF00', '#FF0000'];
+export const colors = ['#d3d3d3', '#00FF00', '#FF0000'];
 
 export function updateSize(confContRef, specContRef, setSize) {
     if (confContRef.current) {
@@ -24,7 +22,7 @@ export function updateSize(confContRef, specContRef, setSize) {
         const parentHeight = confContRef.current.offsetHeight;
         setSize(prev => ({
           ...prev,
-          p_width: parentWidth * 0.6, 
+          p_width: parentWidth * 0.8, 
           p_height: parentHeight * 0.6 
         }));
       }
@@ -33,7 +31,7 @@ export function updateSize(confContRef, specContRef, setSize) {
         const parentHeight = specContRef.current.offsetHeight;
         setSize(prev => ({
           ...prev,
-          g_width: parentWidth * 0.80, 
+          g_width: parentWidth * 0.90, 
           g_height: parentHeight * 0.80
         }));
       }
@@ -101,17 +99,26 @@ export function scanButton(bleStatus, scan, updateScan) {
               ...prev,
               status: true,
             }));
-            
-          // Scan / server send routine
-          var data = ble.getData().map(Number);
-          updateScan( prev => ({
-            ...prev,
-            data: data,
-          }));
-
-          console.log(data);
-          serv.sendToML(0, data, updateScan);
+          
+            setTimeout( function() {
+              // Scan / server send routine
+              var data = ble.getData().map(Number);
+              updateScan( prev => ({
+                ...prev,
+                data: data,
+              }));
+              console.log(data);
+              serv.sendToML(0, data, updateScan);
+            }, 5000);
           }}>Scan Sample
       </button>)
     }
+}
+
+export function weightUpdate(weight){
+  if(weight > 0){
+    return (weight+"g")
+  } else {  
+    return("N/A")
+  }
 }

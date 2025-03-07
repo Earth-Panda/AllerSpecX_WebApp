@@ -19,7 +19,7 @@ const AllerSpecX_App = () => {
   const [scan, updateScan] = useState({
     data: ui.zeroSpectra,
     status: false,
-    result: "No",
+    result: "N/A",
     confidence: ui.pieData,
     weight: 0,
   });
@@ -50,7 +50,9 @@ const AllerSpecX_App = () => {
       <div class = "results-container">
         <div class="header" >Results</div>
         <div class="results-display">
-            {scan.result}
+            <div class="center-text">
+              {scan.result}
+            </div>
         </div>
       </div>
 
@@ -98,6 +100,7 @@ const AllerSpecX_App = () => {
               outerRadius={"100%"}
               dataKey="value"
               stroke="transparent"
+              label={({name, value}) => `${name} ${value*100}%`}
             >
               {scan.confidence.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={ui.colors[index % ui.colors.length]} />
@@ -111,7 +114,9 @@ const AllerSpecX_App = () => {
       <div class="weight-container">
         <div class="header">Weight (g)</div>
         <div class="weight-display">
-            {scan.weight+"g"}
+          <div class="center-text">
+            {ui.weightUpdate(scan.weight)}
+          </div>  
         </div>
       </div>
     </div>

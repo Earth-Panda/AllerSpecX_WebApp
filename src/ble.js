@@ -1,13 +1,11 @@
 import * as CONSTS from "./consts.js"
 
-export var recData = []
-
-export function clearData() {
-    recData = [];
-}
+var recData = []
+var lastScan = []
+var readyToRecive = true;
 
 export function getData(){
-    return recData;
+    return lastScan;
 }
 
 // Request Bluetooth devices
@@ -84,9 +82,20 @@ export async function bluetoothStartup(bleStatus, updateDevice) {
 
 export function handle_change(event) {
     var enc = new TextDecoder("utf-8");
-    console.log(enc.decode(event.target.value.buffer));
-    recData.push(enc.decode(event.target.value.buffer))
-    console.log(recData)
+    var val = enc.decode(event.target.value.buffer)
+    if(val=='F'){
+        readyToRecive = true
+        recData = [];
+    }
+    else if(val=='L'){
+        readyToRecive = false
+        lastScan=recData
+    } 
+    else if(readyToRecive) {
+        recData.push(val)
+        // console.log(recData)
+    }
+    
 }
 
 function getSupportedProperties(characteristic) {
