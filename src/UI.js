@@ -4,6 +4,8 @@ import * as serv from "./server.js";
 
 export const pieData = [
     { name: "", value: 1 },
+    { name: "Yes", value: 0},
+    {name: "No", value: 0}
 ];
 
 // const zeroSpectra = new Array(64).fill(0);
@@ -14,7 +16,7 @@ export const zeroSpectra = [
   32768, 9823, 54781, 20845, 7312, 48521, 3912, 27682, 5481, 28754, 21879, 39754, 6821, 13287, 4895, 62014
 ];
 
-export const colors = ['#d3d3d3', '#00FF00', '#FF0000'];
+export var colors = ['#d3d3d3', '#00FF00', '#FF0000'];
 
 export function updateSize(confContRef, specContRef, setSize) {
     if (confContRef.current) {
@@ -22,8 +24,8 @@ export function updateSize(confContRef, specContRef, setSize) {
         const parentHeight = confContRef.current.offsetHeight;
         setSize(prev => ({
           ...prev,
-          p_width: parentWidth * 0.8, 
-          p_height: parentHeight * 0.6 
+          p_width: parentWidth * 1, 
+          p_height: parentHeight * 0.7 
         }));
       }
       if (specContRef.current) {
@@ -103,22 +105,24 @@ export function scanButton(bleStatus, scan, updateScan) {
             setTimeout( function() {
               // Scan / server send routine
               var data = ble.getData().map(Number);
+              
               updateScan( prev => ({
                 ...prev,
                 data: data,
               }));
               console.log(data);
+              colors = ['#00FF00', '#FF0000'];
               serv.sendToML(0, data, updateScan);
-            }, 5000);
+            }, 10000);
           }}>Scan Sample
       </button>)
     }
 }
 
 export function weightUpdate(weight){
-  if(weight > 0){
-    return (weight+"g")
-  } else {  
+  if(weight == 0){
     return("N/A")
+  } else {  
+    return (weight+"g")
   }
 }

@@ -100,7 +100,7 @@ const AllerSpecX_App = () => {
               outerRadius={"100%"}
               dataKey="value"
               stroke="transparent"
-              label={({name, value}) => `${name} ${value*100}%`}
+              label={({name, value}) => `${name} ${value}%`}
             >
               {scan.confidence.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={ui.colors[index % ui.colors.length]} />

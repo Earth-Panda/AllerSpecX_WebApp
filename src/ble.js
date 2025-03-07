@@ -38,6 +38,7 @@ export async function bluetoothStartup(bleStatus, updateDevice) {
             connection: CONSTS.CONNECTING, // Set connecting 
         }));
 
+        console.log(device)
 
         const server = await device.gatt.connect();
 
