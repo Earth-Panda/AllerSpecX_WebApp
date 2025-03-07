@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/AllerSpecX_WebApp/static/css/main.4ac87b2b.css",
-    "main.js": "/AllerSpecX_WebApp/static/js/main.51899ca1.js",
+    "main.css": "/AllerSpecX_WebApp/static/css/main.7b58c229.css",
+    "main.js": "/AllerSpecX_WebApp/static/js/main.1201c28c.js",
     "static/js/488.68521f19.chunk.js": "/AllerSpecX_WebApp/static/js/488.68521f19.chunk.js",
     "static/media/AllerSpecX_Logo.png": "/AllerSpecX_WebApp/static/media/AllerSpecX_Logo.9d36aea54f3386d97745.png",
     "index.html": "/AllerSpecX_WebApp/index.html",
-    "main.4ac87b2b.css.map": "/AllerSpecX_WebApp/static/css/main.4ac87b2b.css.map",
-    "main.51899ca1.js.map": "/AllerSpecX_WebApp/static/js/main.51899ca1.js.map",
+    "main.7b58c229.css.map": "/AllerSpecX_WebApp/static/css/main.7b58c229.css.map",
+    "main.1201c28c.js.map": "/AllerSpecX_WebApp/static/js/main.1201c28c.js.map",
     "488.68521f19.chunk.js.map": "/AllerSpecX_WebApp/static/js/488.68521f19.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4ac87b2b.css",
-    "static/js/main.51899ca1.js"
+    "static/css/main.7b58c229.css",
+    "static/js/main.1201c28c.js"
   ]
 }
