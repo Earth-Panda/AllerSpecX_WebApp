@@ -3,18 +3,11 @@ import * as ble from "./ble.js";
 import * as serv from "./server.js";
 
 export const pieData = [
-    { name: "", value: 1 },
-    { name: "Yes", value: 0},
-    {name: "No", value: 0}
+    { name: "", value: 100 },
 ];
 
 // const zeroSpectra = new Array(64).fill(0);
-export const zeroSpectra = [
-  5234, 16234, 4821, 9532, 30578, 19283, 5721, 14876, 32890, 4502, 6348, 29876, 521, 12478, 36541, 21456,
-  39874, 1205, 65432, 21780, 4532, 29765, 18230, 4732, 60231, 5482, 31876, 12897, 27654, 38945, 1243, 5623,
-  45230, 7812, 253, 2431, 57234, 3120, 8293, 27145, 61023, 2948, 38572, 1482, 6321, 24832, 5472, 19345,
-  32768, 9823, 54781, 20845, 7312, 48521, 3912, 27682, 5481, 28754, 21879, 39754, 6821, 13287, 4895, 62014
-];
+export const zeroSpectra = [4,152.4333333,2,0.366666667,12,63.75862069,93.7,0,2,1,1,0.366666667,4.066666667,0,16,2,515.4333333,287.4333333,29.96666667,420.8965517,72.2,3,0,8,0,308.3461538,1,2,11,2.333333333,0,345.7,0,25,0,12,20.06666667,8,401.8666667,27.17241379,122,6,0,7,1,436.2,204.6923077,15,29.12,27.56666667,0,3,0.266666667,45.9,6.966666667,53.4137931,4.1,87.77777778,0,1,11,17.48275862,0,1];
 
 export var colors = ['#d3d3d3', '#00FF00', '#FF0000'];
 
@@ -39,10 +32,10 @@ export function updateSize(confContRef, specContRef, setSize) {
       }
 }
 
-export function arrayConvDisplay(arr) {
+export function arrayConvDisplay(arr, calarr) {
     const graphArr = [];
     arr.forEach((data, index) => {
-        graphArr[index] = {name: 750+index*5, value: data};
+        graphArr[index] = {name: 750+index*5, value: data, calRice: calarr[index]};
     });
 
     return graphArr;
@@ -112,7 +105,8 @@ export function scanButton(bleStatus, scan, updateScan) {
               }));
               console.log(data);
               colors = ['#00FF00', '#FF0000'];
-              serv.sendToML(0, data, updateScan);
+              serv.sendToML(0, data, updateScan, 'http://127.0.0.1:8080/v1/models/model:predict');
+              serv.sendToML(0, data, updateScan, 'http://127.0.0.1:8082/v1/models/model:predict');
             }, 10000);
           }}>Scan Sample
       </button>)
@@ -125,4 +119,21 @@ export function weightUpdate(weight){
   } else {  
     return (weight+"g")
   }
+}
+
+// Function to convert array of objects to CSV
+
+// Function to trigger CSV file download
+export function exportToCSV(data) {
+  const csvContent = data.map(row => row.join(",")).join("\n");
+  const blob = new Blob([csvContent], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+  
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "data.csv";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
