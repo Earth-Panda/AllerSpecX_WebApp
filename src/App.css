@@ -58,7 +58,7 @@
   background: linear-gradient(45deg,#f0f0f0, #cfcfcf);
   gap: 50px;
   padding: 30px;
-  height: 90vh;
+  height: 93vh;
   grid-auto-rows: minmax(100px, auto);
 }
 
@@ -154,10 +154,10 @@
 
 .results-display {
   grid-column: 1;
-  grid-row: 3 / span 1;
+  grid-row: 3 / span 5;
   font-family: Arial, sans-serif;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 30px;
 }
 
 .weight-display {
@@ -209,13 +209,15 @@
 }
 
 .csv-button {
-  width:80%;
+  width:70%;
+  height: 50%;
   grid-column: 3;
   grid-row: 1 / span 2; 
   border-radius: 2px;
   background:rgb(235, 235, 235);
   box-shadow: 2px 5px 9px #888888;
   border: none; 
+  justify-self: right;
 }
 .csv-button:hover {
   background:rgb(209, 209, 209);

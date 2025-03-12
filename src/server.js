@@ -2,7 +2,6 @@
 import axios from 'axios';
 
 export async function sendToML(id, data, updateScan, url) {
-
   axios.post(url, {
       id: id,
       input: data
@@ -11,21 +10,16 @@ export async function sendToML(id, data, updateScan, url) {
       console.log(response);
       const data = response.data;
 
-      if(Object.hasOwn(data, "nutrition_facts")){ // if Nutrition facts
+      if(Object.hasOwn(data, "calories")){ // if Nutrition facts
         updateScan( prev => ({
           ...prev,
           type: 0,
           status: false,
           nutrifax: {
-            calories: data.nutrition_facts[0],
-            fat: data.nutrition_facts[1],
-            saturated_fat: data.nutrition_facts[2],
-            trans_fat: data.nutrition_facts[3],
-            carbohydrate: data.nutrition_facts[4],
-            fibre: data.nutrition_facts[5],
-            sugars: data.nutrition_facts[6],
-            protein: data.nutrition_facts[7],
-            sodium: data.nutrition_facts[8],
+            calories: data.calories,
+            carbohydrates: data.carbs,
+            fibres: data.fibres,
+            proteins: data.proteins,
           }
         }));
       } else { // If allergen

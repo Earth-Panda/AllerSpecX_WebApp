@@ -8,6 +8,9 @@ export function getData(){
     return lastScan;
 }
 
+export function clearData(){
+    lastScan = [];
+}
 // Request Bluetooth devices
 export async function bluetoothStartup(bleStatus, updateDevice) {
     console.log("Scanning for BLE devices")

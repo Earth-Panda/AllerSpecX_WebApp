@@ -9,7 +9,7 @@ export const pieData = [
 // const zeroSpectra = new Array(64).fill(0);
 export const zeroSpectra = [4,152.4333333,2,0.366666667,12,63.75862069,93.7,0,2,1,1,0.366666667,4.066666667,0,16,2,515.4333333,287.4333333,29.96666667,420.8965517,72.2,3,0,8,0,308.3461538,1,2,11,2.333333333,0,345.7,0,25,0,12,20.06666667,8,401.8666667,27.17241379,122,6,0,7,1,436.2,204.6923077,15,29.12,27.56666667,0,3,0.266666667,45.9,6.966666667,53.4137931,4.1,87.77777778,0,1,11,17.48275862,0,1];
 
-export var colors = ['#d3d3d3', '#00FF00', '#FF0000'];
+export var colors = ['#d3d3d3','#EB6130','#d3d3d3'];
 
 export function updateSize(confContRef, specContRef, setSize) {
     if (confContRef.current) {
@@ -32,10 +32,10 @@ export function updateSize(confContRef, specContRef, setSize) {
       }
 }
 
-export function arrayConvDisplay(arr, calarr) {
+export function arrayConvDisplay(arr) {
     const graphArr = [];
     arr.forEach((data, index) => {
-        graphArr[index] = {name: 750+index*5, value: data, calRice: calarr[index]};
+        graphArr[index] = {name: 750+index*5, value: data};
     });
 
     return graphArr;
@@ -55,7 +55,6 @@ export function getStatusUI(status) {
 }
 
 export function connectButton(bleStatus, updateDevice) {
-  console.log(bleStatus.connection);
     if(bleStatus.connection == CONSTS.UNCONNECTED){
         return (<button 
                   class={"connect-button"}
@@ -88,29 +87,35 @@ export function scanButton(bleStatus, scan, updateScan) {
     else if (bleStatus.connection == CONSTS.CONNECTED){
       return (<button 
           class={ "scan-button" }
-          onClick={ () => {
-          
+          onClick={ () => { 
             updateScan( prev => ({
               ...prev,
               status: true,
             }));
-          
-            setTimeout( function() {
-              // Scan / server send routine
-              var data = ble.getData().map(Number);
-              
-              updateScan( prev => ({
-                ...prev,
-                data: data,
-              }));
-              console.log(data);
-              colors = ['#00FF00', '#FF0000'];
-              serv.sendToML(0, data, updateScan, 'http://127.0.0.1:8080/v1/models/model:predict');
-              serv.sendToML(0, data, updateScan, 'http://127.0.0.1:8082/v1/models/model:predict');
-            }, 10000);
+            ble.clearData()
+            setTimeout(scanClick, 12000, updateScan);
           }}>Scan Sample
       </button>)
     }
+}
+
+function scanClick(updateScan){
+  // Scan / server send routine
+  var data = ble.getData().map(Number);
+  if (data.length == 64){
+    updateScan( prev => ({
+      ...prev,
+      data: data,
+    }));
+    console.log(data);
+    colors = ['#EB6130','#d3d3d3'];
+    serv.sendToML(0, data, updateScan, 'http://127.0.0.1:8080/v1/models/model:predict');
+    serv.sendToML(0, data, updateScan, 'http://127.0.0.1:8082/v1/models/model:predict');
+    ble.clearData()
+  } 
+  else {
+    setTimeout(scanClick, 100, updateScan);
+  }
 }
 
 export function weightUpdate(weight){
@@ -125,15 +130,17 @@ export function weightUpdate(weight){
 
 // Function to trigger CSV file download
 export function exportToCSV(data) {
-  const csvContent = data.map(row => row.join(",")).join("\n");
-  const blob = new Blob([csvContent], { type: "text/csv" });
-  const url = URL.createObjectURL(blob);
-  
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "data.csv";
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  if(data.length >0){
+    const csvContent = data.join(","); // Convert array to a single CSV row
+    const blob = new Blob([csvContent], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "data.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
 }
