@@ -146,7 +146,7 @@ const AllerSpecX_App = () => {
               <td>{scan.nutrifax.calories.toFixed(2)}</td>
             </tr>
             <tr>
-              <th>Carbohydrate (g)</th>
+              <th>Carbohydrates</th>
               <td>{scan.nutrifax.carbohydrates.toFixed(2)}</td>
             </tr>
             <tr>
