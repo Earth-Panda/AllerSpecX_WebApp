@@ -142,11 +142,11 @@ const AllerSpecX_App = () => {
         <div class="table-cont">
           <table class="table">
             <tr>
-              <th>Calories (g)</th>
+              <th>Calories</th>
               <td>{scan.nutrifax.calories.toFixed(2)}</td>
             </tr>
             <tr>
-              <th>Carbohydrates</th>
+              <th>Carbohydrates (g)</th>
               <td>{scan.nutrifax.carbohydrates.toFixed(2)}</td>
             </tr>
             <tr>
